@@ -1,0 +1,321 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group
+        android:id="@+id/mapmenu"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/loadMap"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="加载地图" />
+        <item
+            android:id="@+id/setCenter"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="设置地图中心" />
+        <item
+            android:id="@+id/getCenter"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="获取地图中心" />
+        <item
+            android:id="@+id/zoom1"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="缩放=1" />
+        <item
+            android:id="@+id/zoom7"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="缩放=7" />
+        <item
+            android:id="@+id/zoomIn"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="放大" />
+        <item
+            android:id="@+id/zoomOut"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="缩小" />
+        <item
+            android:id="@+id/unloadMap"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="销毁地图" />
+        <item
+            android:id="@+id/fullScreen"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="全屏显示" />
+        <item
+            android:id="@+id/partScreen"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="指定大小显示" />
+    </group>
+
+    <group
+        android:id="@+id/zoommenu"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/hidelevel"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="设置隐藏级别=2" />
+        <item
+            android:id="@+id/indoorlevel"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="显示室内级别=4" />
+    </group>
+
+    <group
+        android:id="@+id/iconmenu"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/addMarker"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="添加图标" />
+        <item
+            android:id="@+id/addMarkerUrl"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="添加图标Url" />
+        <item
+            android:id="@+id/addFlashMarker"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="添加动态图标" />
+        <item
+            android:id="@+id/addFlashMarkerUrl"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="添加动态图标Url" />
+        <item
+            android:id="@+id/markerPos"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="图标移动" />
+        <item
+            android:id="@+id/deleteMarker"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="删除图标" />
+        <item
+            android:id="@+id/deleteLayer"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="删除图标层" />
+        <item
+            android:id="@+id/addpopup"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="添加信息框" />
+        <item
+            android:id="@+id/closepopup"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="关闭信息框" />
+    </group>
+
+    <group
+        android:id="@+id/addressenu"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/menuGPS"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="获取定位" />
+        <item
+            android:id="@+id/getBounds"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="获取可视边界" />
+        <item
+            android:id="@+id/encodeAddress"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="坐标➡️地址" />
+        <item
+            android:id="@+id/decodeAddress"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="地址➡️坐标" />
+        <item
+            android:id="@+id/getBuilding"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="获取J03号楼信息" />
+        <item
+            android:id="@+id/getObject"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="获取1号楼(J01)信息" />
+        <item
+            android:id="@+id/queryCN"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="查询中文 J01 F01" />
+        <item
+            android:id="@+id/queryEN"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="QueryEN J01 F01" />
+        <item
+            android:id="@+id/objdata"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="查询数据" />
+    </group>
+
+    <group
+        android:id="@+id/layershow"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/loadB1"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="J01 B01" />
+        <item
+            android:id="@+id/loadF1"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="J01 F01" />
+        <item
+            android:id="@+id/loadF2"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="J01 F02" />
+        <item
+            android:id="@+id/loadF3"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="J01 F03" />
+        <item
+            android:id="@+id/loadF4"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="J01 F04" />
+        <item
+            android:id="@+id/roomstyle"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="房间样式J01 F01" />
+        <item
+            android:id="@+id/delroomstyle"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="删除房间样式J01 F01" />
+        <item
+            android:id="@+id/typestyle"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="家具样式J01 F01" />
+        <item
+            android:id="@+id/deltypestyle"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="删除家具样式J01 F01" />
+        <item
+            android:id="@+id/loadOutdoor"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="回到室外" />
+        <item
+            android:id="@+id/displayPerimeter"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="显示周界" />
+        <item
+            android:id="@+id/displayPerimeter2"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="显示周界2" />
+        <item
+            android:id="@+id/removePerimeter"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="隐藏周界" />
+        <item
+            android:id="@+id/parking1"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="J01高亮" />
+        <item
+            android:id="@+id/parking2"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="J5MB高亮" />
+        <item
+            android:id="@+id/disableHighlight"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="清除高亮" />
+    </group>
+
+    <group
+        android:id="@+id/heatmapmenu"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/drawRoute"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="描绘轨迹" />
+        <item
+            android:id="@+id/caclRoute"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="路径规划" />
+        <item
+            android:id="@+id/clearRoute"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="清除轨迹" />
+        <item
+            android:id="@+id/pathPlanData"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="获取路径规划数据" />
+        <item
+            android:id="@+id/showHeatmap"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="显示热力图" />
+        <item
+            android:id="@+id/clearHeatmap"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="清除热力图" />
+    </group>
+
+    <group
+        android:id="@+id/eventmenu"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/addmkrevent"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="注册图标事件" />
+        <item
+            android:id="@+id/delmkrevent"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="注销图标事件" />
+        <item
+            android:id="@+id/addbudevent"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="注册建筑事件" />
+        <item
+            android:id="@+id/delbudevent"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="注销建筑事件" />
+        <item
+            android:id="@+id/addmodevent"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="注册模型事件" />
+        <item
+            android:id="@+id/delmodevent"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="注销模型事件" />
+        <item
+            android:id="@+id/addzmevent"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="注册缩放事件" />
+        <item
+            android:id="@+id/delzmevent"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="注销缩放事件" />
+        <item
+            android:id="@+id/addmaptap"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="注册地图点击事件" />
+        <item
+            android:id="@+id/delmaptap"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="注销地图点击事件" />
+        <item
+            android:id="@+id/addloc"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="注册定位事件" />
+        <item
+            android:id="@+id/delloc"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="注销定位事件" />
+        <item
+            android:id="@+id/addRoute"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="注册路径规划事件" />
+        <item
+            android:id="@+id/delRoute"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="注销路径规划事件" />
+        <item
+            android:id="@+id/addPathPlan"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="注册路径规划数据" />
+        <item
+            android:id="@+id/delPathPlan"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="注销路径规划数据" />
+        <item
+            android:id="@+id/startloc"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="开始定位" />
+        <item
+            android:id="@+id/stoploc"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="停止定位" />
+    </group>
+
+</menu>

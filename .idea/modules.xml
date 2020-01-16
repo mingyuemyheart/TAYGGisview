@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/TAYGGisview.iml" filepath="$PROJECT_DIR$/TAYGGisview.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/TAYGGisview-app.iml" filepath="$PROJECT_DIR$/app/TAYGGisview-app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/hmap/TAYGGisview-hmap.iml" filepath="$PROJECT_DIR$/hmap/TAYGGisview-hmap.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/gisview-src-noivas-1119-2.iml" filepath="$PROJECT_DIR$/gisview-src-noivas-1119-2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/hmap/hmap.iml" filepath="$PROJECT_DIR$/hmap/hmap.iml" />
+    </modules>
+  </component>
+</project>
