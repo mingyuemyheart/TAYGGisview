@@ -48,14 +48,14 @@
             android:name="com.amap.api.v2.apikey"
             android:value="56b6d61eea075d18c7806c31e9b103c0" />
 
-        <activity android:name=".BlankActivity">
+        <activity android:name=".MainActivity2">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <activity android:name=".MainActivity2" />
+<!--        <activity android:name=".MainActivity2" />-->
 
     </application>
 

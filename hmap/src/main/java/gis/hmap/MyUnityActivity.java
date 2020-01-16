@@ -56,25 +56,22 @@ public class MyUnityActivity extends Activity {
                 GisView.setGisServer("http://w3m.huawei.com/mcloud/mag/FreeProxyForText/BTYQ_json");//生产环境
                 gisView.setLogEnable(true);
                 gisView.setMaxZoomLevel(18);
-                gisView.loadMap(5, new double[]{22.6573017046106460, 114.0576151013374200});
-
-                //获取对应经纬度的园区信息
-                GisView.queryWorkspace(114.0576151013374200, 22.6573017046106460, new QueryWorkspaceListener() {
+                gisView.loadMap(5, new double[]{22.66183778643608, 114.06381502747536}, "TA");
+                gisView.addMapLoadedListener(new MapLoadedListener() {
                     @Override
-                    public void onQueryWorkspace(GeoLocation[] loc) {
-                        if (loc != null && loc.length > 0) {
-                            for (int i = 0; i < loc.length; i++) {
-                                GeoLocation geoLocation = loc[i];
-                                if (!TextUtils.isEmpty(geoLocation.address)) {
-                                    Log.e("switchWorkspace", geoLocation.address);
-                                }
+                    public void OnMapLoaded(MapLoadedEvent me) {
+                        gisView.showIndoorMap(GisView.TYPE_PARKING, "A1", "B02", new IndoorCallback() {
+                            @Override
+                            public void done() {
+
                             }
-                        }
+                        });
+                        gisView.showModelHighlight("A1", "B02", new String[] {"008","009","010","011","012"});
                     }
                 });
 
-                gisView.getPathPlanData(new RoutePoint(new double[]{22.655674, 114.05721}, "J01", "F01"),
-                        new RoutePoint(new double[]{22.65592, 114.05719}, "J01", "F01"), new PathPlanDataListener() {
+                gisView.getPathPlanData(new RoutePoint(new double[]{22.662119, 114.06337}, "A1", "B02"),
+                        new RoutePoint(new double[]{22.661556, 114.06322}, "A1", "B02"), new PathPlanDataListener() {
                             @Override
                             public void pathPlanDataSuccess(final List<Point2D> point2DS) {
                                 mUIHandler.post(new Runnable() {
@@ -117,72 +114,6 @@ public class MyUnityActivity extends Activity {
             }
         });
 
-    }
-
-    public static void test1() {
-        Log.e("test1", "测试toast弹出");
-    }
-
-    public static void test2() {
-        GisView.setGisServer("http://w3m.huawei.com/mcloud/mag/FreeProxyForText/BTYQ_json");
-        GisView.queryWorkspace(114.0576151013374200, 22.6573017046106460, new QueryWorkspaceListener() {
-            @Override
-            public void onQueryWorkspace(GeoLocation[] loc) {
-                if (loc != null && loc.length > 0) {
-                    for (int i = 0; i < loc.length; i++) {
-                        GeoLocation geoLocation = loc[i];
-                        if (!TextUtils.isEmpty(geoLocation.address)) {
-                            Log.e("queryWorkspace", geoLocation.address);
-                        }
-                    }
-                }
-            }
-        });
-    }
-
-    public void test3() {
-        GisView.setGisServer("http://w3m.huawei.com/mcloud/mag/FreeProxyForText/BTYQ_json");
-        GisView gisView = (GisView) getLayoutInflater().inflate(R.layout.gisview, null);
-        gisView.getPathPlanData(new RoutePoint(new double[]{22.655674, 114.05721}, "J01", "F01"),
-                new RoutePoint(new double[]{22.65592, 114.05719}, "J01", "F01"), new PathPlanDataListener() {
-                    @Override
-                    public void pathPlanDataSuccess(List<Point2D> point2DS) {
-                        for (int i = 0; i < point2DS.size(); i++) {
-                            Point2D point = point2DS.get(i);
-                            Log.e("pathPlanDataSuccess", String.format("%s---%s", point.x, point.y));
-                        }
-                    }
-
-                    @Override
-                    public void pathPlanDataFailed(String msg) {
-                        Log.e("pathPlanDataFailed", msg);
-                    }
-                });
-    }
-
-    public void test4() {
-        GisView.setGisServer("http://w3m.huawei.com/mcloud/mag/FreeProxyForText/BTYQ_json");
-        GisView.queryWorkspace(114.0576151013374200, 22.6573017046106460, new QueryWorkspaceListener() {
-            @Override
-            public void onQueryWorkspace(final GeoLocation[] loc) {
-                mUIHandler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        String result = "";
-                        if (loc != null && loc.length > 0) {
-                            for (int i = 0; i < loc.length; i++) {
-                                GeoLocation geoLocation = loc[i];
-                                if (!TextUtils.isEmpty(geoLocation.address)) {
-                                    result += geoLocation.address+"\n";
-                                    Log.e("queryWorkspace", geoLocation.address);
-                                }
-                            }
-                        }
-                        Toast.makeText(MyUnityActivity.this, result, Toast.LENGTH_SHORT).show();
-                    }
-                });
-            }
-        });
     }
 
     protected void onDestroy() {

@@ -73,7 +73,6 @@ class MainActivity2 : Activity(), NavigationView.OnNavigationItemSelectedListene
     private fun init() {
         initToolbar()
         initMap()
-        initLocation()
     }
 
     private fun initToolbar() {
@@ -84,39 +83,31 @@ class MainActivity2 : Activity(), NavigationView.OnNavigationItemSelectedListene
     }
 
     private fun initMap() {
+//        GisView.setGisServer("http://mcloud-uat.huawei.com/mcloud/mag/FreeProxyForText/BTYQ_json")//华为平安园区
+        GisView.setGisServer("http://w3m.huawei.com/mcloud/mag/FreeProxyForText/BTYQ_json")//生产环境
         gisView.setLogEnable(true)
         gisView.setMaxZoomLevel(18)
-        gisView.loadMap(5, doubleArrayOf(22.6573017046106460, 114.0576151013374200))
+//        gisView.loadMap(5, doubleArrayOf(22.6573017046106460, 114.0576151013374200), "BTYQ")//坂田园区
+        gisView.loadMap(4, doubleArrayOf(22.66183778643608, 114.06381502747536), "TA")//天安云谷
+        gisView.addMapLoadedListener {
+            gisView.showIndoorMap(GisView.TYPE_PARKING, "A1", "B02", this)
+            gisView.showModelHighlight("A1", "B02", arrayOf("008","009","010","011","012"))
+        }
         gisView.setRouteFacility(
                 arrayOf("Lift", "InOut"),
                 arrayOf(GeneralMarker(null, null, resources.getDrawable(R.drawable.elevator, null), 32, 32, null),
                         GeneralMarker(null, null, resources.getDrawable(R.drawable.door, null), 32, 32, null)))
     }
 
-    /**
-     * 初始化混合定位
-     */
-    private fun initLocation() {
-        GisView.initEngine(applicationContext,
-                "NzNhZDZkYzgtYmQyNy00MmQ3LWJjY2UtOGY2YTViZmVhYTYy",
-                "xgAUPmQsEPU+iwt+TNJZ7va+Td5ri3EgHp6+pSNS0jY",
-                "https://100.95.92.144",
-                "/api/66aea767-6429-4b20-8ec0-74f4e58c60fe/HuaweiServer/locationRequest",
-                true,
-                "Pl0sh9bE8TZBhz8Nz+7PDg==",
-                "com.huawei.jinanq.ioc",
-                "http://apigw-beta.huawei.com/api/service/Qproject/locationRequest")
-    }
-
     override fun onNavigationItemSelected(p0: MenuItem): Boolean {
         when(p0.itemId) {
-            R.id.loadMap -> gisView.loadMap(5, doubleArrayOf(22.6573017046106460, 114.0576151013374200))
+            R.id.loadMap -> gisView.loadMap(4, doubleArrayOf(22.66183778643608, 114.06381502747536), "TA")
             R.id.setCenter -> {
-                gisView.setCenter(22.6573017046106460, 114.0576151013374200)
-                Toast.makeText(this, String.format("中心：%f, %f", gisView.center[0], gisView.center[1]), Toast.LENGTH_SHORT).show()
+                gisView.setCenter(22.66183778643608, 114.06381502747536)
+                Toast.makeText(this, String.format("中心：%s, %s", gisView.center[0], gisView.center[1]), Toast.LENGTH_SHORT).show()
             }
             R.id.getCenter -> {
-                Toast.makeText(this, String.format("中心：%f, %f", gisView.center[0], gisView.center[1]), Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, String.format("中心：%s, %s", gisView.center[0], gisView.center[1]), Toast.LENGTH_SHORT).show()
             }
             R.id.zoom1 -> gisView.zoom = 1
             R.id.zoom7 -> gisView.zoom = 7
@@ -342,11 +333,9 @@ class MainActivity2 : Activity(), NavigationView.OnNavigationItemSelectedListene
             }
 
 
-            R.id.loadB1 -> gisView.showIndoorMap("J01", "B01")
-            R.id.loadF1 -> gisView.showIndoorMap("J01", "F01", this)
-            R.id.loadF2 -> gisView.showIndoorMap("J01", "F02", this)
-            R.id.loadF3 -> gisView.showIndoorMap("J01", "F03", this)
-            R.id.loadF4 -> gisView.showIndoorMap("J01", "F04", this)
+            R.id.loadB01 -> gisView.showIndoorMap("A1", "B01")
+            R.id.loadB02 -> gisView.showIndoorMap("A1", "B02", this)
+            R.id.loadB03 -> gisView.showIndoorMap("A1", "B03", this)
             R.id.roomstyle -> {
                 val roomStyle = RoomStyle()
                 roomStyle.lineColor = Color.parseColor("#909000")
@@ -396,13 +385,8 @@ class MainActivity2 : Activity(), NavigationView.OnNavigationItemSelectedListene
             }
             R.id.removePerimeter -> gisView.removePerimeter()
             R.id.parking1 -> {
-                gisView.showIndoorMap(GisView.TYPE_PARKING, "J01", "B01", this)
-                gisView.showModelHighlight(Common.parkId(), "J01", "B01", arrayOf("A22","A21","C23","B55","车位"))
-//                gisView.showModelHighlight(Common.parkId(), "J01", "B01", arrayOf("001","002","088","050A","052A"))//天安云谷的点
-            }
-            R.id.parking2 -> {
-                gisView.showIndoorMap(GisView.TYPE_PARKING, "J5MB", "B01", this)
-                gisView.showModelHighlight(Common.parkId(), "J5MB", "B01", arrayOf("车位","车位","车位"))
+                gisView.showIndoorMap(GisView.TYPE_PARKING, "A1", "B02", this)
+                gisView.showModelHighlight("A1", "B02", arrayOf("008","009","010","011","012"))
             }
             R.id.disableHighlight -> {
                 gisView.removeModelhighlighting()
@@ -442,18 +426,18 @@ class MainActivity2 : Activity(), NavigationView.OnNavigationItemSelectedListene
 //                                "J01", "B01", 20, 100, ContextCompat.getDrawable(this, R.drawable.marker_3), 64, 64), arrayOf(),
 //                        ps)
                 gisView.calcRoutePath(
-                        RoutePoint(doubleArrayOf(22.6566606403, 114.057011427),
+                        RoutePoint(doubleArrayOf(22.662119, 114.06337),
                                 Color.parseColor("#FFFFFF"),
-                                "J01", "B01", 20, 100, ContextCompat.getDrawable(this, R.drawable.marker_1), 64, 64),
-                        RoutePoint(doubleArrayOf(22.6570013915, 114.056768622),
+                                "A1", "B02", 20, 100, ContextCompat.getDrawable(this, R.drawable.marker_1), 64, 64),
+                        RoutePoint(doubleArrayOf(22.661556, 114.06322),
                                 Color.parseColor("#FFFFFF"),
-                                "J01", "B01", 20, 100, ContextCompat.getDrawable(this, R.drawable.marker_3), 64, 64), arrayOf(),
+                                "A1", "B02", 20, 100, ContextCompat.getDrawable(this, R.drawable.marker_3), 64, 64), arrayOf(),
                         ps)
             }
             R.id.clearRoute -> gisView.clearPath()
             R.id.pathPlanData -> gisView.getPathPlanData(
-                    RoutePoint(doubleArrayOf(22.6566606403, 114.057011427), "J01", "B01"),
-                    RoutePoint(doubleArrayOf(22.6570013915, 114.056768622), "J01", "B01"), this)
+                    RoutePoint(doubleArrayOf(22.662119, 114.06337), "A1", "B02"),
+                    RoutePoint(doubleArrayOf(22.661556, 114.06322), "A1", "B02"), this)
             R.id.showHeatmap -> {
                 //生成热力图
                 //22.972860320987436, 113.35606992244722

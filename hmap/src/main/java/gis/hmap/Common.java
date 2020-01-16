@@ -28,8 +28,8 @@ public class Common {
     private static Common _instance = null;
     private String host = "http://192.168.1.100:8090/iserver";
     private String rtlsLicenseHost = "https://10.240.155.52:18889";
-    private String workSpace = "china400";
-    private String parkId = "China";
+    private String workSpace = "BTYQ";
+    private String parkId = "BTYQ";
     private List<String> extParam = new ArrayList<>();
     private String parkIdName = "ID";
     private String parkCenterNameX = "ParkX";

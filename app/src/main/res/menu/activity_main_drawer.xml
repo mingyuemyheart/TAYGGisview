@@ -147,25 +147,17 @@
         android:id="@+id/layershow"
         android:checkableBehavior="single">
         <item
-            android:id="@+id/loadB1"
+            android:id="@+id/loadB01"
             android:icon="@drawable/ic_menu_slideshow"
-            android:title="J01 B01" />
+            android:title="A1 B01" />
         <item
-            android:id="@+id/loadF1"
+            android:id="@+id/loadB02"
             android:icon="@drawable/ic_menu_slideshow"
-            android:title="J01 F01" />
+            android:title="A1 B02" />
         <item
-            android:id="@+id/loadF2"
+            android:id="@+id/loadB03"
             android:icon="@drawable/ic_menu_slideshow"
-            android:title="J01 F02" />
-        <item
-            android:id="@+id/loadF3"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="J01 F03" />
-        <item
-            android:id="@+id/loadF4"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="J01 F04" />
+            android:title="A1 B03" />
         <item
             android:id="@+id/roomstyle"
             android:icon="@drawable/ic_menu_slideshow"
@@ -201,11 +193,7 @@
         <item
             android:id="@+id/parking1"
             android:icon="@drawable/ic_menu_slideshow"
-            android:title="J01高亮" />
-        <item
-            android:id="@+id/parking2"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="J5MB高亮" />
+            android:title="车位显示" />
         <item
             android:id="@+id/disableHighlight"
             android:icon="@drawable/ic_menu_slideshow"

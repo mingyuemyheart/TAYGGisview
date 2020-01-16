@@ -309,7 +309,7 @@ import java.util.Map;
         @Override
         public void run() {
             GetFeaturesBySQLParameters sqlParameters = new GetFeaturesBySQLParameters();
-            sqlParameters.datasetNames = new String[] { Common.parkId()+":"+florid };
+            sqlParameters.datasetNames = new String[] {String.format("%s:%s_parking", Common.parkId(), florid)};
             sqlParameters.toIndex = 99999;
             QueryParameter queryParameter = new QueryParameter();
             queryParameter.attributeFilter = "BuildingId = \"" + buildingId + "\"";
@@ -359,7 +359,7 @@ import java.util.Map;
                 }
             }
 
-            sqlParameters.datasetNames = new String[] { Common.parkId()+":"+florid+"_LINE" };
+            sqlParameters.datasetNames = new String[] {String.format("%s:%s_LINE", Common.parkId(), florid)};
             sqlService.process(sqlParameters, listener);
             try {
                 listener.waitUntilProcessed();
@@ -564,6 +564,7 @@ import java.util.Map;
             queryParameter.attributeFilter = "BuildingId = \"" + buildingId + "\"";
             sqlParameters.queryParameter = queryParameter;
 
+            Log.e("QueryBasementMap", Common.getHost()+Common.DATA_URL());
             GetFeaturesBySQLService sqlService = new GetFeaturesBySQLService(Common.getHost()+Common.DATA_URL());
             MyGetFeaturesEventListener listener = new MyGetFeaturesEventListener();
             sqlService.process(sqlParameters, listener);

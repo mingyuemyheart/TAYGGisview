@@ -1137,26 +1137,6 @@ public class GisView extends RelativeLayout implements Overlay.OverlayTapListene
         }
     }
 
-    private void loadOffLineMaps(int zoom, double[] center) {
-        setZoom(center, zoom);
-        if (mapLayer == null) {
-            mapLayer = new LayerView(getContext());
-            String url = Common.getHost() + Common.MAP_URL();
-            if (logEnable) {
-                Log.e(TAG+"loadOffLineMaps", url);
-            }
-            mapLayer.setURL(url);
-//        mapLayer.setExtParams(Common.extParam());
-//        darkLayer = new MBTilesLayerView(getContext(), name);
-//        backMapLayer = new LayerView(getContext());
-//        backMapLayer.setURL(Common.getHost() + Common.BACKMAP_URL());
-//        mapView.addLayer(backMapLayer);
-            mapView.addLayer(mapLayer);
-            handler.sendEmptyMessage(Common.START_TIMER);
-            QueryUtils.queryAllBuildings("buildings@" + Common.parkId(), handler);
-        }
-    }
-
     public static void enableAutoClearCache(boolean enable) {
         autoClearCachedTiles = enable;
     }
@@ -1202,46 +1182,32 @@ public class GisView extends RelativeLayout implements Overlay.OverlayTapListene
      * 加载地图
      * @param zoom 地图缩放级别
      * @param center 经纬度中心点
+     * @param parkId 园区id
      * @return
      */
-    public boolean loadMap(int zoom, double[] center) {
-        String[] location = QueryUtils.queryPark(center[0], center[1]);
-        if (location != null) {
-            if (!location[0].equalsIgnoreCase(Common.parkId())) {
-                if (autoClearCachedTiles) {
-                    clearMapCache();
-                }
-                destroyMap();
+    public boolean loadMap(int zoom, double[] center, String parkId) {
+        if (!parkId.equalsIgnoreCase(Common.parkId())) {
+            if (autoClearCachedTiles) {
+                clearMapCache();
             }
-            loadMap(zoom, center, location[0], location[0]);
-            return true;
+            destroyMap();
         }
-        return false;
+        loadOffLineMaps(zoom, center, parkId);
+        return true;
     }
 
-    /**
-     * 加载地图
-     * @param zoom 地图缩放级别
-     * @param center 经纬度中心点
-     * @param workspace 工作空间
-     * @param parkId 园区id
-     */
-    public void loadMap(int zoom, double[] center, String workspace, String parkId) {
-        loadMap(zoom, center, workspace, parkId, new ArrayList<String>());
-    }
+    private void loadOffLineMaps(int zoom, double[] center, String parkId) {
+        setZoom(center, zoom);
+        if (mapLayer == null) {
+            mapLayer = new LayerView(getContext());
+            mapLayer.setURL(Common.getHost() + Common.MAP_URL());
+            mapView.addLayer(mapLayer);
+            handler.sendEmptyMessage(Common.START_TIMER);
+            QueryUtils.queryAllBuildings("buildings@" + Common.parkId(), handler);
+        }
 
-    /**
-     * 加载地图
-     * @param zoom 地图缩放级别
-     * @param center 经纬度中心点
-     * @param workspace 工作空间
-     * @param parkId 园区id
-     * @param extParam 额外参数
-     */
-    public void loadMap(int zoom, double[] center, String workspace, String parkId, List<String> extParam) {
-        Common.setCurrentZone(workspace, parkId);
-        Common.setExtParam(extParam);
-        loadOffLineMaps(zoom, center);
+        //放到这里调用是为了先获取图层瓦片BTYQ数据，然后才是获取TA相关数据
+        Common.setCurrentZone(parkId, parkId);
     }
 
     public void setGlobalZone(String workspace, String datasource, String dataset) {
@@ -2217,11 +2183,10 @@ public class GisView extends RelativeLayout implements Overlay.OverlayTapListene
 
     /**
      * 模型高亮
-     * @param parkId
      * @param buildingId
      * @param modId 车位编号
      */
-    public void showModelHighlight(String parkId, String buildingId, String floorid, String[] modId) {
+    public void showModelHighlight(String buildingId, String floorid, String[] modId) {
         List<String[]> ids = new ArrayList<>();
         ids.add(modId);
 
@@ -2229,7 +2194,7 @@ public class GisView extends RelativeLayout implements Overlay.OverlayTapListene
         List<PresentationStyle> pss = new ArrayList<>();
         PresentationStyle hps = new PresentationStyle();
         hps.lineWidth = 5;
-        hps.fillColor = Color.parseColor("#5CE7FF");
+        hps.fillColor = Color.GREEN;
         hps.opacity = 150;
         pss.add(hps);
 
