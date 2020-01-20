@@ -14,9 +14,11 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.supermap.android.maps.Point2D;
+import com.supermap.services.components.commontypes.Feature;
 import com.unity3d.player.UnityPlayer;
 
 import java.util.List;
+import java.util.Map;
 
 public class MyUnityActivity extends Activity {
 
@@ -62,8 +64,13 @@ public class MyUnityActivity extends Activity {
                     public void OnMapLoaded(MapLoadedEvent me) {
                         gisView.showIndoorMap(GisView.TYPE_PARKING, "A1", "B02", new IndoorCallback() {
                             @Override
-                            public void done() {
-
+                            public void showIndoorSuccess(List<Map<String, String>> dataList) {
+                                for (int i = 0; i < dataList.size(); i++) {
+                                    Map<String, String> dataMap = dataList.get(i);
+                                    for (Map.Entry<String, String> entry : dataMap.entrySet()) {
+                                        Log.e("dataMap", entry.getKey()+","+entry.getValue());
+                                    }
+                                }
                             }
                         });
                         gisView.showModelHighlight("A1", "B02", new String[] {"008","009","010","011","012"});

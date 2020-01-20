@@ -92,7 +92,6 @@ public class GisView extends RelativeLayout implements Overlay.OverlayTapListene
     protected List<ModelListener> mModelListener;
     protected List<ZoomListener> mZoomListener;
     protected List<MapListener> mMapListener;
-    protected IndoorCallback indoorCallback;
     protected static List<LocationListener> mPosListener;
     protected TouchOverlay touchOverlay;
     protected int mHideLevel = 1;
@@ -1682,7 +1681,6 @@ public class GisView extends RelativeLayout implements Overlay.OverlayTapListene
      * @param floorid
      */
     public void showIndoorMap(String indoorType, String buildingId, String floorid, IndoorCallback callback) {
-        indoorCallback = callback;
         Common.getLogger(null).log(Level.INFO, String.format("showIndoorMap: buildingId=%s; floorid=%s", buildingId, floorid));
         if (TextUtils.isEmpty(floorid)) {
             clearOpensMap();
@@ -1719,7 +1717,7 @@ public class GisView extends RelativeLayout implements Overlay.OverlayTapListene
 //                    msg.what = Common.QUERY_BASEMENT_MAP;
 //                    handler.sendMessage(msg);
 //                } else {
-                    QueryUtils.queryBasementMap(Common.parkId(), realBuildingId, floorid, handler);
+                    QueryUtils.queryBasementMap(Common.parkId(), realBuildingId, floorid, handler, callback);
 //                }
             } else {//室内地图正常样式
 //                Feature buildingFeature = GisDataCache.getInstance(this.getContext(), this.mMapCacheListener).getBuilding(realBuildingId);
@@ -1785,7 +1783,7 @@ public class GisView extends RelativeLayout implements Overlay.OverlayTapListene
 //                    msg.what = Common.QUERY_INDOOR_MAP;
 //                    handler.sendMessage(msg);
 //                } else
-                    QueryUtils.queryIndoorMap(Common.parkId() + ":Buildings", realBuildingId, floorid, handler);
+                    QueryUtils.queryIndoorMap(Common.parkId() + ":Buildings", realBuildingId, floorid, handler, callback);
             }
         }
     }
@@ -2833,10 +2831,6 @@ public class GisView extends RelativeLayout implements Overlay.OverlayTapListene
         }
         mapView.invalidate();
         renderCalculatedRoute(calculatedRoute);
-        if (indoorCallback != null) {
-            indoorCallback.done();
-            indoorCallback = null;
-        }
     }
 
     /**
@@ -2957,10 +2951,6 @@ public class GisView extends RelativeLayout implements Overlay.OverlayTapListene
         }
         mapView.invalidate();
         renderCalculatedRoute(calculatedRoute);
-        if (indoorCallback != null) {
-            indoorCallback.done();
-            indoorCallback = null;
-        }
     }
 
     /**

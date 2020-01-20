@@ -104,8 +104,8 @@ import java.util.Map;
      * @param florid
      * @param handler
      */
-    public static void queryIndoorMap(String mapId, String buildingId, String florid, Handler handler) {
-        new Thread(new QueryIndoorMapRunnable(mapId, buildingId, florid, handler)).start();
+    public static void queryIndoorMap(String mapId, String buildingId, String florid, Handler handler, IndoorCallback callback) {
+        new Thread(new QueryIndoorMapRunnable(mapId, buildingId, florid, handler, callback)).start();
     }
 
     private static class QueryIndoorMapRunnable implements Runnable {
@@ -113,12 +113,14 @@ import java.util.Map;
         String buildingId;
         String florid;
         Handler handler;
+        IndoorCallback callback;
 
-        public QueryIndoorMapRunnable(String mapId, String buildingId, String florid, Handler handler) {
+        public QueryIndoorMapRunnable(String mapId, String buildingId, String florid, Handler handler, IndoorCallback callback) {
             this.mapId = mapId;
             this.buildingId = buildingId;
             this.florid = florid;
             this.handler = handler;
+            this.callback = callback;
         }
 
         @Override
@@ -185,9 +187,14 @@ import java.util.Map;
             GetFeaturesResult floor = listener.getReult();
             if (floor != null && floor.features != null) {
                 rooms = new ArrayList<>();
+                List<Map<String, String>> dataList = new ArrayList<>();
                 for (Feature feature : floor.features) {
-                    for (int i = 0; i < feature.fieldValues.length; i++) {
-                        Log.e("QueryIndoorMapRunnable", feature.fieldNames[i]+"---"+feature.fieldValues[i]);
+                    if (callback != null) {
+                        Map<String, String> dataMap = new LinkedHashMap<>();
+                        for (int i = 0; i < feature.fieldNames.length; i++) {
+                            dataMap.put(feature.fieldNames[i], feature.fieldValues[i]);
+                        }
+                        dataList.add(dataMap);
                     }
                     Geometry geometry = feature.geometry;
                     List<List<Point2D>> roomPoints = new ArrayList<>();
@@ -209,6 +216,9 @@ import java.util.Map;
                     info.put("FLOORID", florid);
                     String key = String.format("%s.%s.%s", buildingId, florid, info.get("SMID"));
                     rooms.add(new ModelData(key, null, roomPoints, info));
+                }
+                if (callback != null) {
+                    callback.showIndoorSuccess(dataList);
                 }
             }
 
@@ -289,8 +299,8 @@ import java.util.Map;
      * @param florid
      * @param handler
      */
-    public static void queryBasementMap(String mapId, String buildingId, String florid, Handler handler) {
-        new Thread(new QueryBasementMapRunnable(mapId, buildingId, florid, handler)).start();
+    public static void queryBasementMap(String mapId, String buildingId, String florid, Handler handler, IndoorCallback callback) {
+        new Thread(new QueryBasementMapRunnable(mapId, buildingId, florid, handler, callback)).start();
     }
 
     private static class QueryBasementMapRunnable implements Runnable {
@@ -298,12 +308,14 @@ import java.util.Map;
         String buildingId;
         String florid;
         Handler handler;
+        IndoorCallback callback;
 
-        public QueryBasementMapRunnable(String mapId, String buildingId, String florid, Handler handler) {
+        public QueryBasementMapRunnable(String mapId, String buildingId, String florid, Handler handler, IndoorCallback callback) {
             this.mapId = mapId;
             this.buildingId = buildingId;
             this.florid = florid;
             this.handler = handler;
+            this.callback = callback;
         }
 
         @Override
@@ -315,7 +327,6 @@ import java.util.Map;
             queryParameter.attributeFilter = "BuildingId = \"" + buildingId + "\"";
             sqlParameters.queryParameter = queryParameter;
 
-            Log.e("QueryBasementMap", Common.getHost() + Common.DATA_URL());
             GetFeaturesBySQLService sqlService = new GetFeaturesBySQLService(Common.getHost() + Common.DATA_URL());
             MyGetFeaturesEventListener listener = new MyGetFeaturesEventListener();
             sqlService.process(sqlParameters, listener);
@@ -330,7 +341,16 @@ import java.util.Map;
             GetFeaturesResult structure = listener.getReult();
             if (structure != null && structure.features != null) {
                 structureGeometry = new ArrayList<>();
+
+                List<Map<String, String>> dataList = new ArrayList<>();
                 for (Feature feature : structure.features) {
+                    if (callback != null) {
+                        Map<String, String> dataMap = new LinkedHashMap<>();
+                        for (int i = 0; i < feature.fieldNames.length; i++) {
+                            dataMap.put(feature.fieldNames[i], feature.fieldValues[i]);
+                        }
+                        dataList.add(dataMap);
+                    }
                     Geometry geometry = feature.geometry;
                     List<Point2D> geoPoints = getPiontsFromGeometry(geometry);
                     if (geometry.parts.length > 1) {
@@ -356,6 +376,9 @@ import java.util.Map;
                         if (structureBounds.getBottom() > geometry.getBounds().getBottom())
                             structureBounds.setBottom(geometry.getBounds().getBottom());
                     }
+                }
+                if (callback != null) {
+                    callback.showIndoorSuccess(dataList);
                 }
             }
 
@@ -588,7 +611,6 @@ import java.util.Map;
                         dataMap.put(feature.fieldNames[i], feature.fieldValues[i]);
                     }
                     String parkingId = dataMap.get("PID");
-                    Log.e("parkingId", parkingId);
                     boolean isHighLight = false;
                     int index = 0;
                     if (modIds != null)

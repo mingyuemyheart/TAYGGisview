@@ -426,10 +426,10 @@ class MainActivity2 : Activity(), NavigationView.OnNavigationItemSelectedListene
 //                                "J01", "B01", 20, 100, ContextCompat.getDrawable(this, R.drawable.marker_3), 64, 64), arrayOf(),
 //                        ps)
                 gisView.calcRoutePath(
-                        RoutePoint(doubleArrayOf(22.662119, 114.06337),
+                        RoutePoint(doubleArrayOf(22.662093318, 114.062755261),
                                 Color.parseColor("#FFFFFF"),
                                 "A1", "B02", 20, 100, ContextCompat.getDrawable(this, R.drawable.marker_1), 64, 64),
-                        RoutePoint(doubleArrayOf(22.661556, 114.06322),
+                        RoutePoint(doubleArrayOf(22.6617052433, 114.062755748),
                                 Color.parseColor("#FFFFFF"),
                                 "A1", "B02", 20, 100, ContextCompat.getDrawable(this, R.drawable.marker_3), 64, 64), arrayOf(),
                         ps)
@@ -509,8 +509,13 @@ class MainActivity2 : Activity(), NavigationView.OnNavigationItemSelectedListene
     /**
      * 绘制室内地图回调
      */
-    override fun done() {
-        Toast.makeText(this@MainActivity2, "室内显示完成", Toast.LENGTH_LONG).show()
+    override fun showIndoorSuccess(dataList: MutableList<MutableMap<String, String>>?) {
+        for (i in dataList!!.indices) {
+            val dataMap = dataList[i]
+            for ((key, value) in dataMap) {
+                Log.e("dataMap", "key=$key,value=$value")
+            }
+        }
     }
 
     /**

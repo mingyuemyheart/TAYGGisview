@@ -1,9 +1,11 @@
 package gis.hmap;
 
-/**
- * Created by Ryan on 2019/5/18.
- */
+import java.util.List;
+import java.util.Map;
 
+/**
+ * 室内地图回调
+ */
 public interface IndoorCallback {
-    void done();
+    void showIndoorSuccess(List<Map<String, String>> dataList);
 }
